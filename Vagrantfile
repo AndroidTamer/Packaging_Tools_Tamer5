@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "debian/jessie64"
+  config.vm.box = "debian/stretch64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "172.16.33.50"
+  config.vm.network "private_network", ip: "172.16.33.100"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -67,11 +67,11 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
      #sudo echo "deb http://apt.include-once.org/ ./ #include-once.org" > /etc/apt/sources.list.d/xpm.list
-     echo "deb http://http.debian.net/debian jessie-backports main contrib non-free" | sudo tee /etc/apt/sources.list.d/jessie_backports.list
+     echo "deb http://http.debian.net/debian stretch-backports main contrib non-free" | sudo tee /etc/apt/sources.list.d/stretch_backports.list
      #wget -q http://apt.include-once.org/public.gpg -O- | sudo apt-key add -
      sudo apt-get update
      sudo apt-get install -y ruby vim ruby-dev vim build-essential reprepro debian-builder dpkg-sig git
-     sudo apt-get install -y python-pip python-dev libssl-dev qttools5-dev-tools openjdk-7-jdk qt5-default zlib1g-dev mercurial maven
+     sudo apt-get install -y python-pip python-dev libssl-dev qttools5-dev-tools openjdk-8-jdk qt5-default zlib1g-dev mercurial maven
      sudo gem install fpm
      gpg --allow-secret-key-import --import /vagrant/signing/7EE83BCF.asc
      #wget http://apt.include-once.org/xpm-1.3.3.6.gem -O /vagrant/xpm-1.3.3.6.gem
@@ -80,7 +80,7 @@ Vagrant.configure(2) do |config|
      sudo pip install html2text
      sudo apt-get install python-virtualenv
      sudo pip install virtualenv-tools
-     sudo apt-get install openjdk-8-jdk
+     #sudo apt-get install openjdk-9-jdk
      sudo apt-get install cmake
      sudo apt-get install libffi-dev
      cp /vagrant/s3cfg ~/.s3cfg
